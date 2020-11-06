@@ -10,8 +10,26 @@ interface AppProps {
   fetchTodos(): any;
 }
 class _App extends React.Component<AppProps> {
+  // don't expect function to return anything
+  onButtonClick = (): void => {
+    this.props.fetchTodos();
+  };
+
+  // Typescript can implicitly assign type, but here we explicitly tell it to expect to return an array of JSX elements
+  renderList(): JSX.Element[] {
+    // again, defining todo: Todo is optional, but let's be explicit
+    return this.props.todos.map((todo: Todo) => {
+      return <div key={todo.id}>{todo.title}</div>;
+    });
+  }
+
   render() {
-    return <div>Hi there</div>;
+    return (
+      <div>
+        <button onClick={this.onButtonClick}>Fetch</button>
+        {this.renderList()}
+      </div>
+    );
   }
 }
 
