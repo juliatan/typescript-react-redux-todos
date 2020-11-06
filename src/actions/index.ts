@@ -9,10 +9,15 @@ export interface Todo {
   completed: boolean;
 }
 
-// option, but good practice to define exactly the type of what should be disptactched
+// optional, but good practice to define exactly the type of what should be dispactched
 export interface FetchTodosAction {
   type: ActionTypes.fetchTodos;
   payload: Todo[];
+}
+
+export interface DeleteTodoAction {
+  type: ActionTypes.deleteTodo;
+  payload: number; // let's just give it the id of the Todo to be deleted
 }
 
 const url = 'https://jsonplaceholder.typicode.com/todos';
@@ -26,5 +31,13 @@ export const fetchTodos = () => {
       type: ActionTypes.fetchTodos,
       payload: response.data,
     });
+  };
+};
+
+// optional, but let's explicitly tell it that deleteTodo function needs to return something in the share of a DeleteTodoAction
+export const deleteTodo = (id: number): DeleteTodoAction => {
+  return {
+    type: ActionTypes.deleteTodo,
+    payload: id,
   };
 };
