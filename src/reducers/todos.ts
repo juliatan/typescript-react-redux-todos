@@ -1,5 +1,4 @@
-import { Todo, FetchTodosAction } from '../actions/index';
-import { ActionTypes } from '../actions/types';
+import { Todo, FetchTodosAction, ActionTypes } from '../actions/index';
 
 // notation is saying state takes the shape of an array of Todo, and the initial value of state = []
 export const todosReducer = (state: Todo[] = [], action: FetchTodosAction) => {
