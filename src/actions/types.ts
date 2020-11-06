@@ -7,4 +7,5 @@ export enum ActionTypes {
   deleteTodo,
 }
 
+// Action is a type union - it can be either of these 2 interfaces
 export type Action = FetchTodosAction | DeleteTodoAction;
