@@ -3,14 +3,14 @@ import { Dispatch } from 'redux'; // from redux docs, we see they have a Dispatc
 import { ActionTypes } from './types';
 
 // define what we expect to get back from API...
-interface Todo {
+export interface Todo {
   id: number;
   title: string;
   completed: boolean;
 }
 
 // option, but good practice to define exactly the type of what should be disptactched
-interface FetchTodosAction {
+export interface FetchTodosAction {
   type: ActionTypes.fetchTodos;
   payload: Todo[];
 }
