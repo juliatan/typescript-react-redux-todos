@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import { Todo, fetchTodos, deleteTodo } from '../actions';
-import { StoreState } from '../reducers';
+import { Todo, fetchTodos, deleteTodo } from "../actions";
+import { StoreState } from "../reducers";
 
 // Define what type of props we want App to take
 interface AppProps {
@@ -10,10 +10,20 @@ interface AppProps {
   fetchTodos: Function; // typeof fetchTodos doesn't work because Typescript doesn't know how to deal with redux-thunk promises right now
   deleteTodo: typeof deleteTodo; // typeof is effectively a copy-paste of a type
 }
+
 class _App extends React.Component<AppProps> {
+  state = { fetching: false };
+
+  componentDidUpdate(prevProps: Readonly<AppProps>) {
+    if (!prevProps.todos.length && this.props.todos.length) {
+      this.setState({ fetching: false });
+    }
+  }
+
   // don't expect function to return anything
   onButtonClick = (): void => {
     this.props.fetchTodos();
+    this.setState({ fetching: true });
   };
 
   onTodoClick = (id: number): void => {
@@ -36,6 +46,7 @@ class _App extends React.Component<AppProps> {
     return (
       <div>
         <button onClick={this.onButtonClick}>Fetch</button>
+        {this.state.fetching ? 'Loading' : null}
         {this.renderList()}
       </div>
     );
